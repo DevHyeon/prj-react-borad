@@ -21,6 +21,7 @@ class ApiService{
     }
 
     editUser(user){
+        
         return axios.put(USER_API_BASE_URL+'/'+user.id,user);
     }
 }

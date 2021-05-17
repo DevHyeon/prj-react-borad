@@ -12,6 +12,7 @@ export class EditUserComponent extends Component {
 
         this.state = {
             id: '',
+            username:'',
             firstName: '',
             lastName: '',
             age: '',
@@ -28,6 +29,7 @@ export class EditUserComponent extends Component {
         ApiService.fetchUserByID(window.localStorage.getItem("userID"))
             .then(res => {
                 let user = res.data;
+                
                 this.setState({
                     id: user.id,
                     username: user.username,
@@ -36,8 +38,10 @@ export class EditUserComponent extends Component {
                     age: user.age,
                     salary: user.salary,
                 })
+                
             })
             .catch(err => {
+                
                 console.log('loadUser() 에러', err);
             });
     }
@@ -65,6 +69,7 @@ export class EditUserComponent extends Component {
                 this.setState({
                     message: user.lastName + '님 정보가 수정되었습니다.'
                 })
+                console.log(this.state.message);
                 this.props.history.push('/users');
             })
             .catch(err => {
@@ -80,14 +85,13 @@ export class EditUserComponent extends Component {
                 <Typography variant="h4" style={style}>Edit User</Typography>
                 <form>
 
-                    <TextField type="text" name="username" readOnly={true} fullWidth margin="normal" defaultValue={this.state.username} />
+                    <TextField type="text" name="username" readOnly={true} fullWidth margin="normal" value={this.state.username}  />
 
                     <TextField placeholder="Edit your first name" name="firstName" fullWidth margin="normal" value={this.state.firstName} onChange={this.onChange} />
 
                     <TextField placeholder="Edit your last name" name="lastName" fullWidth margin="normal" value={this.state.lastName} onChange={this.onChange} />
 
                     <TextField type="number" name="age" value={this.state.age} fullWidth margin="normal" placeholder="Edit your age" onChange={this.onChange} />
-
 
                     <TextField type="number" name="salary" value={this.state.salary} fullWidth margin="normal" placeholder="Edit your salary" onChange={this.onChange} />
 

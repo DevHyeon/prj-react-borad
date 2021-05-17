@@ -18,7 +18,7 @@ export class UserListComponent extends Component {
 
         this.state={
             users:[],
-            maessage: null
+            message: null
         }
     }
 
@@ -34,6 +34,7 @@ export class UserListComponent extends Component {
                 })
             })
             .catch(err =>{
+                
                 console.log('reloadUserList() Error!',err);
             });
     }
@@ -41,10 +42,12 @@ export class UserListComponent extends Component {
         ApiService.deleteUser(userID)
         .then(res=>{
             this.setState({
-                maessage:'User Deleted Successfully.'
+                message:'User Deleted Successfully.'
             });
+            console.log(this.state.message);
+
             this.setState({
-                users:this.sate.users.filter( user =>
+                users:this.state.users.filter( user =>
                     user.id !== userID)
             });
         })
@@ -54,7 +57,8 @@ export class UserListComponent extends Component {
     }
 
     editUser=(ID)=>{
-        window.localStorage.setItem("userId",ID);
+        
+        window.localStorage.setItem("userID",ID);
         this.props.history.push('/edit-user');
 
     }
@@ -73,7 +77,7 @@ export class UserListComponent extends Component {
                     <TableHead>
                         <TableRow>
                             <TableCell>ID</TableCell>
-                            <TableCell>FirstNmae</TableCell>
+                            <TableCell align="right">FirstNmae</TableCell>
                             <TableCell align="right">LastNmae</TableCell>
                             <TableCell align="right">UserNmae</TableCell>
                             <TableCell align="right">Age</TableCell>
